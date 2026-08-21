@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="color-scheme" content="dark light" />
+    <meta charset="utf-8" />
+	<link rel="stylesheet" href="https://www.nerdfonts.com/assets/css/webfont.css">
+	<link href="https://cdn.jsdelivr.net/npm/@fontsource/monaspace-neon@5.3.0/index.min.css" rel="stylesheet">
+    <title>uremote</title>
+    <style>
+    * {
+        margin: 0; padding: 0;
+        user-select: none;
+    }
+    
+    html, body {
+        height: 100%;
+    }
+    
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    #tp {
+        height: 50%;
+        background-image: radial-gradient(gray 1px, transparent 0);
+        background-size: 10px 10px;
+    }
+    
+    #kb {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: 3px;
+    }
+    
+    #kb .row {
+        display: flex;
+        flex: 1;
+        gap: 3px;
+    }
+    
+    #kb .row button {
+        flex: 1;
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    #kb button {
+        font-family: "Monaspace Neon";
+        font-weight: bold;
+        font-size: 16px;
+        overflow: hidden;
+        border-style: none;
+        min-height: 32px;
+    }
+    
+    #kb button.pressed {
+        filter: invert(1);
+    }
+
+    #kb .off { display: none !important; }
+
+    #kb button[name="BTN_LEFT"], #kb button[name="BTN_RIGHT"],
+    #kb button[name="KEY_SPACE"] {
+        flex: 6 !important;
+    }
+
+    </style>
+</head>
+<body>
+    <div id="tp"></div>
+    <div id="kb">
+        <div class="row">
+        <button onClick="toggleMore();">…</button>
+        <button name="BTN_LEFT"></button>
+        <button name="BTN_RIGHT"></button>
+        <button onClick="window.location.reload();"><span class="nf nf-md-refresh"></span></button>
+        <button onClick="toggleFs();"><span class="nf nf-md-fullscreen"></span></button>
+        </div>
+    
+        <div class="row more">
+        <button name="KEY_ESC"><span class="nf nf-md-keyboard_esc"></span></button>
+        <button name="KEY_F1"><span class="nf nf-md-keyboard_f1"></span></button>
+        <button name="KEY_F2"><span class="nf nf-md-keyboard_f2"></span></button>
+        <button name="KEY_F3"><span class="nf nf-md-keyboard_f3"></span></button>
+        <button name="KEY_F4"><span class="nf nf-md-keyboard_f4"></span></button>
+        <button name="KEY_F5"><span class="nf nf-md-keyboard_f5"></span></button>
+        <button name="KEY_F6"><span class="nf nf-md-keyboard_f6"></span></button>
+        <button name="KEY_F7"><span class="nf nf-md-keyboard_f7"></span></button>
+        <button name="KEY_F8"><span class="nf nf-md-keyboard_f8"></span></button>
+        <button name="KEY_F9"><span class="nf nf-md-keyboard_f9"></span></button>
+        <button name="KEY_F10"><span class="nf nf-md-keyboard_f10"></span></button>
+        <button name="KEY_F11"><span class="nf nf-md-keyboard_f11"></span></button>
+        <button name="KEY_F12"><span class="nf nf-md-keyboard_f12"></span></button>
+        <button name="KEY_INSERT"><span class="nf nf-cod-insert"></span></button>
+        <button name="KEY_DELETE"><span class="nf nf-md-delete"></span></button>
+        </div>
+
+        <div class="row more">
+        <button name="KEY_VOLUMEDOWN"><span class="nf nf-fa-volume_down"></span></button>
+        <button name="KEY_MUTE"><span class="nf nf-fa-volume_xmark"></span></button>
+        <button name="KEY_VOLUMEUP"><span class="nf nf-fa-volume_up"></span></button>
+        <button name="KEY_LEFTMETA"><span class="nf nf-md-apple_keyboard_command"></span></button>
+        <button name="KEY_PREVIOUSSONG"><span class="nf nf-md-skip_previous"></span></button>
+        <button name="KEY_PLAYPAUSE"><span class="nf nf-md-play_pause"></span></button>
+        <button name="KEY_NEXTSONG"><span class="nf nf-md-skip_next"></span></button>
+        </div>
+
+        <div class="row more">
+        <button name="KEY_LEFTCTRL"><span class="nf nf-md-apple_keyboard_control"></span></button>
+        <button name="KEY_LEFTALT"><span class="nf nf-md-apple_keyboard_option"></span></button>
+        <button name="KEY_TAB"><span class="nf nf-md-keyboard_tab"></span></button>
+        <button name="KEY_LEFT"><span class="nf nf-fa-caret_left"></span></button>
+        <button name="KEY_UP"><span class="nf nf-fa-caret_up"></span></button>
+        <button name="KEY_DOWN"><span class="nf nf-fa-caret_down"></span></button>
+        <button name="KEY_RIGHT"><span class="nf nf-fa-caret_right"></span></button>
+        </div>
+        
+        <div class="row more">
+        <button name="KEY_GRAVE">`<sup>~<sup></button>
+        <button name="KEY_BACKSLASH">\<sup>|<sup></button>
+        <button name="KEY_LEFTBRACE">[<sup>{<sup></button>
+        <button name="KEY_RIGHTBRACE">]<sup>}<sup></button>
+        <button name="KEY_MINUS">-<sup>—<sup></button>
+        <button name="KEY_EQUAL">=<sup>+<sup></button>
+        <button name="KEY_SEMICOLON">;<sup>:<sup></button>
+        <button name="KEY_APOSTROPHE">'<sup>"<sup></button>
+        <button name="KEY_RIGHTALT"><span class="nf nf-md-apple_keyboard_option"></span></button>
+        </div>
+
+        <div class="row">
+        <button name="KEY_1">1<sup>!<sup></button>
+        <button name="KEY_2">2<sup>@<sup></button>
+        <button name="KEY_3">3<sup>#<sup></button>
+        <button name="KEY_4">4<sup>$<sup></button>
+        <button name="KEY_5">5<sup>%<sup></button>
+        <button name="KEY_6">6<sup>^<sup></button>
+        <button name="KEY_7">7<sup>&<sup></button>
+        <button name="KEY_8">8<sup>*<sup></button>
+        <button name="KEY_9">9<sup>(<sup></button>
+        <button name="KEY_0">0<sup>)<sup></button>
+        <button name="KEY_SLASH">/<sup>?<sup></button>
+        </div>
+
+        <div class="row">
+        <button name="KEY_Q">Q</button>
+        <button name="KEY_W">W</button>
+        <button name="KEY_E">E</button>
+        <button name="KEY_R">R</button>
+        <button name="KEY_T">T</button>
+        <button name="KEY_Y">Y</button>
+        <button name="KEY_U">U</button>
+        <button name="KEY_I">I</button>
+        <button name="KEY_O">O</button>
+        <button name="KEY_P">P</button>
+        </div>
+
+        <div class="row">
+        <button name="KEY_A">A</button>
+        <button name="KEY_S">S</button>
+        <button name="KEY_D">D</button>
+        <button name="KEY_F">F</button>
+        <button name="KEY_G">G</button>
+        <button name="KEY_H">H</button>
+        <button name="KEY_J">J</button>
+        <button name="KEY_K">K</button>
+        <button name="KEY_L">L</button>
+        </div>
+
+        <div class="row">
+        <button name="KEY_LEFTSHIFT"><span class="nf nf-md-apple_keyboard_shift"></span></button>
+        <button name="KEY_Z">Z</button>
+        <button name="KEY_X">X</button>
+        <button name="KEY_C">C</button>
+        <button name="KEY_V">V</button>
+        <button name="KEY_B">B</button>
+        <button name="KEY_N">N</button>
+        <button name="KEY_M">M</button>
+        <button name="KEY_BACKSPACE"><span class="nf nf-md-backspace"></span></button>
+        </div>
+
+        <div class="row">
+        <button name="KEY_CAPSLOCK"><span class="nf nf-md-apple_keyboard_caps"></span></button>
+        <button name="KEY_COMMA">,<sup><<sup></button>
+        <button name="KEY_SPACE"><span class="nf nf-md-keyboard_space"></span></button>
+        <button name="KEY_DOT">.<sup>><sup></button>
+        <button name="KEY_ENTER"><span class="nf nf-md-keyboard_return"></span></button>
+        </div>
+    </div>
+    <script type="text/javascript">
+    const more = document.querySelectorAll('.more');
+    var toggledMore = true;
+
+    function toggleMore() {
+        for (const r of more) {
+            if (toggledMore) {
+                r.classList.add('off');
+            } else {
+                r.classList.remove('off');
+            }
+        }
+        toggledMore = !toggledMore;
+    }
+
+    toggleMore();
+
+    function toggleFs() {
+        if (document.fullscreenElement) {
+            document.exitFullscreen()
+        } else {
+            document.body.requestFullscreen();
+        }
+    }
+    
+    const sock = new WebSocket('/ws');
+
+    const buttons = [...document.querySelectorAll('#kb button[name]')];
+
+    fetch('/init', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(buttons.map(b => b.name))
+    })
+
+    // 1 byte type, 2 byte code
+    function kb0(b) {
+        b.classList.add('pressed');
+
+        const view = new DataView(new ArrayBuffer(2));
+        view.setUint8(0, 0); view.setUint8(1, buttons.indexOf(b), true)
+        sock.send(view.buffer);
+    }
+    function kb1(b) {
+        b.classList.remove('pressed');
+
+        const view = new DataView(new ArrayBuffer(2));
+        view.setUint8(0, 1); view.setUint8(1, buttons.indexOf(b), true)
+        sock.send(view.buffer);
+    }
+
+    buttons.forEach(b => {
+        b.addEventListener('touchstart', () => { kb0(b); });
+        b.addEventListener('touchend', () => { kb1(b); });
+        b.addEventListener('touchcancel', () => { kb1(b); });
+    });
+
+    const tp = document.querySelector('#tp');
+    const tp_rect = tp.getBoundingClientRect();
+
+    function* filterTouches(e, end = false) {
+        for (let i = 0; i < e.changedTouches.length; i++) {
+            const t = e.changedTouches.item(i);
+            if (t.identifier < 4) {
+                yield {
+                    slot: t.identifier,
+                    x: (!end) ? Math.min(Math.max((t.clientX - tp_rect.left) / tp_rect.width, 0), 1) : -1,
+                    y: (!end) ? Math.min(Math.max((t.clientY - tp_rect.top) / tp_rect.height, 0), 1) : -1
+                };
+            }
+        }
+    }
+
+    // 1 byte type, (2 bit slot, 11 bit x, 11bit y)...
+    function touchReport(e) {
+        const touches = [...filterTouches(e)];
+
+        if (touches.length) {
+            const view = new DataView(new ArrayBuffer(1 + touches.length * 3));
+    
+            for (const [i, touch] of touches.entries()) {
+                const _b = touch.slot | (touch.x * 2047) << 2 | (touch.y * 2047) << 13
+                view.setUint8(1 + i * 3, _b);
+                view.setUint16(2 + i * 3, _b >> 8, true);
+            }
+    
+            return view;
+        } else {
+            return null;
+        }
+    }
+    
+    tp.addEventListener('touchstart', e => {
+        const view = touchReport(e);
+
+        if (view) {
+            view.setUint8(0, 2);
+            sock.send(view.buffer);
+        }
+    });
+
+    tp.addEventListener('touchmove', e => {
+        const view = touchReport(e);
+
+        if (view) {
+            view.setUint8(0, 3);
+            sock.send(view.buffer);
+        }
+    });
+
+    // 1 byte type, 1 byte slot...
+    tp.addEventListener('touchend', e => {
+        const touches = [...filterTouches(e, true)];
+
+        if (touches.length) {
+            const view = new DataView(new ArrayBuffer(1 + touches.length));
+    
+            for (const [i, touch] of touches.entries()) {
+                view.setUint8(1 + i, touch.slot);
+            }
+    
+            view.setUint8(0, 4);
+            sock.send(view.buffer);
+        }
+    });
+    </script>
+</body>
+</html>
